@@ -45,14 +45,33 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Order Details"),
+        title: Text(
+          "Order Details",
+          style: TextStyle(
+            color: isDarkMode ? Colors.white : Colors.black, // Adapt AppBar text color
+          ),
+        ),
+        backgroundColor: isDarkMode ? Colors.black : Colors.white, // Adapt AppBar background
+        elevation: 0, // Flat design for AppBar
+        iconTheme: IconThemeData(
+          color: isDarkMode ? Colors.white : Colors.black, // Icon color adapts to theme
+        ),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : orderDetails == null
-          ? Center(child: Text("Failed to load order details"))
+          ? Center(
+        child: Text(
+          "Failed to load order details",
+          style: TextStyle(
+            color: isDarkMode ? Colors.white70 : Colors.black87, // Adapt text color
+          ),
+        ),
+      )
           : Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -61,62 +80,95 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             Text(
               "Order ID: ${orderDetails!['order']['id']}",
               style: TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.bold),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode ? Colors.white : Colors.black, // Adapt text color
+              ),
             ),
             SizedBox(height: 10),
             Text(
               "Product: ${orderDetails!['order']['product']['name']}",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(
+                fontSize: 18,
+                color: isDarkMode ? Colors.white70 : Colors.black87, // Adapt text color
+              ),
             ),
             Text(
               "Quantity: ${orderDetails!['order']['product_qty']}",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(
+                fontSize: 18,
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
             ),
             Text(
               "Total Price: \$${orderDetails!['order']['order_price']}",
-              style: TextStyle(fontSize: 18, color: Colors.green),
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode ? Colors.greenAccent : Colors.green, // Highlighted price
+              ),
             ),
             Text(
               "Order Status: ${orderDetails!['order']['order_status']}",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
             ),
             SizedBox(height: 20),
-            Divider(),
+            Divider(color: isDarkMode ? Colors.grey : Colors.black12), // Divider color based on theme
             Text(
               "Deliverer Details",
               style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode ? Colors.white : Colors.black, // Adapt heading color
+              ),
             ),
             SizedBox(height: 10),
             orderDetails!['deliverer'] == null
                 ? Text(
               "No deliverer assigned yet",
               style: TextStyle(
-                  fontSize: 16, color: Colors.red),
+                fontSize: 16,
+                color: Colors.red, // Keep this red for contrast in both modes
+              ),
             )
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Deliverer Name: ${orderDetails!['deliverer']['deliverer_name']}",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: isDarkMode ? Colors.white70 : Colors.black87,
+                  ),
                 ),
                 Text(
                   "Delivery Status: ${orderDetails!['deliverer']['delivery_status']}",
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isDarkMode ? Colors.white70 : Colors.black87,
+                  ),
                 ),
                 Text(
                   "Delivery Note: ${orderDetails!['deliverer']['delivery_note']}",
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isDarkMode ? Colors.white70 : Colors.black87,
+                  ),
                 ),
               ],
             ),
             SizedBox(height: 20),
-            Divider(),
+            Divider(color: isDarkMode ? Colors.grey : Colors.black12),
             Text(
               "Product Details",
               style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode ? Colors.white : Colors.black, // Adapt heading color
+              ),
             ),
             SizedBox(height: 10),
             Image.network(
@@ -128,19 +180,29 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             SizedBox(height: 10),
             Text(
               "Product Description: ${orderDetails!['order']['product']['description']}",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
             ),
             Text(
               "Category: ${orderDetails!['order']['product']['category_name']}",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
             ),
             Text(
-              "Item Price: ${orderDetails!['order']['product']['item_price']}",
-              style: TextStyle(fontSize: 16),
+              "Item Price: \$${orderDetails!['order']['product']['item_price']}",
+              style: TextStyle(
+                fontSize: 16,
+                color: isDarkMode ? Colors.white70 : Colors.black87,
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
 }

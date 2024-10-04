@@ -275,6 +275,7 @@ class _OrderFormScreenState extends State<OrderFormScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 60),
         Text("Payment Details", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         SizedBox(height: 10),
 

@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../global.dart';
 
-
 class CustomizationsScreen extends StatefulWidget {
   @override
   _CustomizationsScreenState createState() => _CustomizationsScreenState();
@@ -15,7 +14,7 @@ class _CustomizationsScreenState extends State<CustomizationsScreen> {
   List<dynamic> customizations = [];
   List<dynamic> pendingPayments = [];
   bool isLoading = true;
- 
+
   // Function to fetch all customizations for a user
   Future<void> fetchCustomizations() async {
     final String apiUrl = "${API_BASE_URL}/customizations/$globalUserId";
@@ -109,10 +108,9 @@ class _CustomizationsScreenState extends State<CustomizationsScreen> {
 
   // Function to create a new customization with geolocation
   Future<void> createCustomization(
-    
       String title, String description, int quantity, String note, String? filePath) async {
     final String apiUrl = "${API_BASE_URL}/customizations";
-      
+
     try {
       // Get the user's location before creating the customization
       Position position = await _determinePosition();
@@ -163,25 +161,58 @@ class _CustomizationsScreenState extends State<CustomizationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Customizations"),
+        title: Text("CustomTeez"),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                _showCreateCustomizationDialog();
-              },
-              child: Text("Create Customization"),
+            // Create Customization Button
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.teal[200],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showCreateCustomizationDialog();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: StadiumBorder(),
+                    backgroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                  ),
+                  child: Text(
+                    "Create Customizations",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
             ),
             SizedBox(height: 20),
-            Text(
-              "Pending Payment Customizations",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+
+            // Pending Payment Section
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.teal[200],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                "Pending Payment Customizations",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
+            SizedBox(height: 16),
+
             Expanded(
               child: ListView.builder(
                 itemCount: pendingPayments.length,
@@ -214,10 +245,21 @@ class _CustomizationsScreenState extends State<CustomizationsScreen> {
               ),
             ),
             SizedBox(height: 20),
-            Text(
-              "All Customizations",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+
+            // All Customizations Section
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.teal[200],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                "All Customizations",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
+            SizedBox(height: 16),
+
             Expanded(
               child: ListView.builder(
                 itemCount: customizations.length,

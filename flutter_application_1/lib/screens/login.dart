@@ -131,48 +131,34 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white, // Change to white background
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 32.0), // Wider padding
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center, // Center alignment for everything
               children: <Widget>[
                 Text(
                   'CustomTeez',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 32, // Slightly larger title
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 20),
-                // Space between title and form fields
-
-                // Network Status Display
-                Text(
-                  'Network Status: $_connectionStatus',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: _connectionStatus == 'No Internet Connection'
-                        ? Colors.red
-                        : Colors.green,
-                  ),
-                ),
-
-                SizedBox(height: 20),
-                // Add some space between network status and form
-
+                SizedBox(height: 40), // More space between title and form fields
                 Form(
                   key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center, // Center text
                     children: <Widget>[
                       Text(
                         'Email',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
+                      SizedBox(height: 8), // Small spacing between label and field
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Enter email',
@@ -180,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12), // Rounded corners
                           ),
                         ),
                         onChanged: (value) {
@@ -189,11 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                       ),
-                      SizedBox(height: 16),
+                      SizedBox(height: 24), // Increased spacing between fields
                       Text(
                         'Password',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
+                      SizedBox(height: 8),
                       TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Enter Password',
@@ -201,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12), // Rounded corners
                           ),
                         ),
                         obscureText: true,
@@ -211,40 +198,40 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 30),
                       _isLoading
                           ? Center(child: CircularProgressIndicator())
                           : SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(
-                                255, 121, 60, 158),
-                            // Purple color for the button
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFFA8E7EB), // Set button color to #A8E7EB
+                              padding: EdgeInsets.symmetric(vertical: 18), // Increase padding for button
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12), // Rounded button
+                              ),
                             ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                loginUser();
+                              }
+                            },
+                            child: Text('LOG IN',
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white)), // Keep text color white
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              loginUser();
-                            }
-                          },
-                          child: Text('LOG IN',
-                              style: TextStyle(
-                                  fontSize: 16, color: Colors.white)),
-                        ),
+
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 24),
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/register');
                   },
                   child: RichText(
+                    textAlign: TextAlign.center, // Center the text
                     text: TextSpan(
                       text: "Don't have an account? ",
                       style: TextStyle(color: Colors.black),
@@ -252,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextSpan(
                           text: 'Register now',
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Color(0xFF1109F3), // Correct way to use hex color
                             decoration: TextDecoration.underline,
                           ),
                         ),
@@ -267,4 +254,5 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 }

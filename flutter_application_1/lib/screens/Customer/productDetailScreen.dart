@@ -48,7 +48,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Details'),
+        title: Text(
+          'Product Details',
+          style: TextStyle(color: Colors.black), // Modern, dark text
+        ),
+        backgroundColor: Colors.white, // Flat design for AppBar
+        elevation: 0, // Remove shadow for a clean look
+        iconTheme: IconThemeData(color: Colors.black), // Dark icons
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
@@ -140,24 +146,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               style: TextStyle(fontSize: 16),
             ),
             Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderFormScreen(
-                      productId: widget.productId,
-                      productName: product!['name'],
-                      availableQuantity: product!['quantity'],
+            SizedBox(
+              width: double.infinity, // Make button full width
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderFormScreen(
+                        productId: widget.productId,
+                        productName: product!['name'],
+                        availableQuantity: product!['quantity'],
+                      ),
                     ),
+                  );
+                },
+                child: Text(
+                  "Order Now",
+                  style: TextStyle(color: Colors.black), // Black text for contrast
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white, // White button background
+                  padding: EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 20),
+                  textStyle: TextStyle(fontSize: 18),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8), // Rounded corners
                   ),
-                );
-              },
-              child: Text("Order Now"),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                    vertical: 15, horizontal: 20),
-                textStyle: TextStyle(fontSize: 18),
+                  side: BorderSide(color: Color(0xFFA8E7EB)), // Border with the same color
+                ),
               ),
             ),
           ],
@@ -165,4 +182,5 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
     );
   }
+
 }

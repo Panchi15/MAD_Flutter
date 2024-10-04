@@ -59,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,// Match login page background color
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -69,19 +69,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                // Title
                 Text(
                   "CustomTeez",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 28.0,
+                    fontSize: 32.0,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black, // Same as login title
                   ),
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: 40.0), // Increased spacing between title and form
+
+                // Name Field
+                Text(
+                  'Name',
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
+                SizedBox(height: 8),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Name',
-                    border: OutlineInputBorder(),
+                    hintText: 'Enter your name',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12), // Rounded corners
+                    ),
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -89,11 +103,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 24.0), // Increased spacing between fields
+
+                // Email Field
+                Text(
+                  'Email',
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
+                SizedBox(height: 8),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
+                    hintText: 'Enter your email',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12), // Rounded corners
+                    ),
                   ),
                   onChanged: (value) {
                     setState(() {
@@ -101,11 +127,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 24.0), // Increased spacing between fields
+
+                // Password Field
+                Text(
+                  'Password',
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
+                SizedBox(height: 8),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
+                    hintText: 'Enter your password',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12), // Rounded corners
+                    ),
                   ),
                   obscureText: true,
                   onChanged: (value) {
@@ -114,49 +152,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 16.0),
-                // DropdownButtonFormField<String>(
-                //   decoration: InputDecoration(
-                //     labelText: 'Select User Type',
-                //     border: OutlineInputBorder(),
-                //   ),
-                //   value: _userType,
-                //   onChanged: (String? newValue) {
-                //     setState(() {
-                //       _userType = newValue!;
-                //     });
-                //   },
-                //   items:
-                //       _userTypes.map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(value),
-                //     );
-                //   }).toList(),
-                // ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 30.0), // Increased spacing before button
+
+                // Register Button
                 _isLoading
                     ? Center(child: CircularProgressIndicator())
-                    : ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Color(0xFF6A1B9A), // Purple button color
-                          padding: EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            registerUser();
-                          }
-                        },
-                        child: Text(
-                          'REGISTER',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
+                    : SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFA8E7EB), // Match login button color
+                      padding: EdgeInsets.symmetric(vertical: 18), // Match button padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12), // Rounded corners
                       ),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        registerUser();
+                      }
+                    },
+                    child: Text(
+                      'REGISTER',
+                      style: TextStyle(
+                        fontSize: 18, // Slightly larger text
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20.0),
+
+                // Already have an account
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -167,7 +194,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       child: Text(
                         'Login here',
-                        style: TextStyle(color: Color(0xFF6A1B9A)),
+                        style: TextStyle(
+                          color: Color(0xFF1109F3), // Match login link color
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
                   ],
@@ -180,4 +210,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
- 

@@ -43,48 +43,100 @@ class _OrdersListScreenState extends State<OrdersListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Determine if the current theme is dark or light
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your Orders"),
+        title: Text(
+          "Your Orders",
+          style: TextStyle(
+            color: isDarkMode ? Colors.white : Colors.black, // Adjust text color
+          ),
+        ),
+        backgroundColor: isDarkMode ? Colors.black : Colors.white, // Adjust AppBar background
+        elevation: 0, // Flat design, no shadow
+        iconTheme: IconThemeData(
+          color: isDarkMode ? Colors.white : Colors.black, // Adjust icon color
+        ),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : orders.isEmpty
-          ? Center(child: Text("You have no orders"))
+          ? Center(
+        child: Text(
+          "You have no orders",
+          style: TextStyle(
+            color: isDarkMode ? Colors.white70 : Colors.black87, // Text color adapts to theme
+          ),
+        ),
+      )
           : ListView.builder(
         itemCount: orders.length,
         itemBuilder: (context, index) {
           var order = orders[index];
-          return ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text("Order ID: ${order['id']}"),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Product: ${order['product']['name']}"),
-                Text("Quantity: ${order['product_qty']}"),
-                Text("Status: ${order['order_status']}"),
-                Text(
-                  "Total Price: ${order['order_price']}",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+          return Card(
+            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0), // Card with margin
+            color: isDarkMode ? Colors.grey[800] : Colors.white, // Card background based on theme
+            child: ListTile(
+              leading: Icon(
+                Icons.shopping_cart,
+                color: isDarkMode ? Colors.white : Colors.black, // Icon color based on theme
+              ),
+              title: Text(
+                "Order ID: ${order['id']}",
+                style: TextStyle(
+                  color: isDarkMode ? Colors.white : Colors.black, // Text color adapts to theme
+                  fontWeight: FontWeight.bold, // Make the Order ID stand out
                 ),
-              ],
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Product: ${order['product']['name']}",
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white70 : Colors.black87, // Subtle text color for subtitle
+                    ),
+                  ),
+                  Text(
+                    "Quantity: ${order['product_qty']}",
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                  Text(
+                    "Status: ${order['order_status']}",
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                  Text(
+                    "Total Price: \$${order['order_price']}",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: isDarkMode ? Colors.greenAccent : Colors.green,
+                    ),
+                  ),
+                ],
+              ),
+              trailing: Icon(
+                Icons.arrow_forward,
+                color: isDarkMode ? Colors.white : Colors.black, // Arrow icon adapts to theme
+              ),
+              onTap: () {
+                // Navigate to OrderDetailsScreen when an order is tapped
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderDetailsScreen(
+                      orderId: order['id'],
+                    ),
+                  ),
+                );
+              },
             ),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              // Navigate to OrderDetailsScreen when an order is tapped
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OrderDetailsScreen(
-                    orderId: order['id'],
-                  ),
-                ),
-              );
-            },
           );
         },
       ),
