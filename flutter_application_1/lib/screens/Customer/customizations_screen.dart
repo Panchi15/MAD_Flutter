@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../global.dart';
 
+
 class CustomizationsScreen extends StatefulWidget {
   @override
   _CustomizationsScreenState createState() => _CustomizationsScreenState();
@@ -14,7 +15,7 @@ class _CustomizationsScreenState extends State<CustomizationsScreen> {
   List<dynamic> customizations = [];
   List<dynamic> pendingPayments = [];
   bool isLoading = true;
-
+ 
   // Function to fetch all customizations for a user
   Future<void> fetchCustomizations() async {
     final String apiUrl = "${API_BASE_URL}/customizations/$globalUserId";
@@ -108,9 +109,10 @@ class _CustomizationsScreenState extends State<CustomizationsScreen> {
 
   // Function to create a new customization with geolocation
   Future<void> createCustomization(
+    
       String title, String description, int quantity, String note, String? filePath) async {
     final String apiUrl = "${API_BASE_URL}/customizations";
-
+      
     try {
       // Get the user's location before creating the customization
       Position position = await _determinePosition();

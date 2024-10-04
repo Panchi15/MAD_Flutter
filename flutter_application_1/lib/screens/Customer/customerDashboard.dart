@@ -9,6 +9,7 @@ import 'profile_screen.dart';
 import 'customizations_screen.dart';
 import '../../global.dart';
 
+
 class CustomerDashboard extends StatefulWidget {
   @override
   _CustomerDashboardState createState() => _CustomerDashboardState();
