@@ -148,7 +148,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 40), // More space between title and form fields
+                SizedBox(height: 20), // Space for connection status
+
+                // Display the connection status
+                Text(
+                  _connectionStatus,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: _connectionStatus == 'No Internet Connection' ? Colors.red : Colors.green,
+                  ),
+                ),
+
+                SizedBox(height: 20), // Space between connection status and form
                 Form(
                   key: _formKey,
                   child: Column(
@@ -203,23 +214,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? Center(child: CircularProgressIndicator())
                           : SizedBox(
                         width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFA8E7EB), // Set button color to #A8E7EB
-                              padding: EdgeInsets.symmetric(vertical: 18), // Increase padding for button
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12), // Rounded button
-                              ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFFA8E7EB), // Set button color to #A8E7EB
+                            padding: EdgeInsets.symmetric(vertical: 18), // Increase padding for button
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12), // Rounded button
                             ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                loginUser();
-                              }
-                            },
-                            child: Text('LOG IN',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white)), // Keep text color white
                           ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              loginUser();
+                            }
+                          },
+                          child: Text('LOG IN',
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.white)), // Keep text color white
+                        ),
 
                       ),
                     ],
